@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 import Config from '@/Config'
+import XHR from '@/api';
 
 Vue.use(Vuex);
 
@@ -27,38 +28,31 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    [Config.INIT](store, payload) {
-      // console.log('hello');
-      axios
-        .get(Config.BASEURL)
-        .then(res => {
-          store.commit(Config.INIT, res.data);
-        })
-        .catch(err => console.log(err));
+    async [Config.INIT](store, payload) {
+      store.commit(Config.INIT, await XHR.fetch())
     },
-    [Config.ADD](store, payload) {
+    async [Config.ADD](store, payload) {
       // console.log(payload)
-      axios
-        .post(Config.BASEURL, {
-          todo: payload,
-          edit: false,
-          done: false
-        })
-        .then(res => {
-          // console.log(res);
-          store.dispatch(Config.INIT);
-        })
-        .catch(err => console.log('er:', err));
+      let result = await XHR.post({
+        todo: payload,
+        edit: false,
+        done: false
+      });
+
+      if (result === 'ok') {
+        store.dispatch(Config.INIT);
+      }
     },
-    [Config.TOGGLE](store, {
-      id,
-      done
-    }) {
-      axios.patch(Config.BASEURL + id, {
-          done: !done
-        })
-        .then(res => store.dispatch(Config.INIT))
-        .catch(err => console.log(err))
+    [Config.TOGGLE](store, payload) {
+
+      // debugger;
+
+
+      // axios.patch(Config.BASEURL + id, {
+      //     done: !done
+      //   })
+      //   .then(res => store.dispatch(Config.INIT))
+      //   .catch(err => console.log(err))
     },
     [Config.EDIT](store, {
       text,

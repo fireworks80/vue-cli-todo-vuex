@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <li @click.self="toggleDone(item)" v-for="item in todolist" :key="item.id">
+    <li @click.self="toggle(item)" v-for="item in todolist" :key="item.id">
       <p v-if="item.edit">
         <input type="text" v-model="text" :placeholder="item.todo">
         <span class="btn-wrap">
@@ -37,7 +37,15 @@ export default {
       this.$store.dispatch(Config.EDIT, { text: this.text, id })
       this.text = ''
     },
-    ...mapActions([Config.TOGGLE, Config.DEL]),
+    toggle(todo) {
+      // debugger;
+      const newTodo = Object.create(todo);
+      newTodo.done = !newTodo.done;
+      console.log(todo);
+      console.log(newTodo);
+      this.$store.dispatch(Config.TOGGLE, todo)
+    },
+    ...mapActions([Config.DEL]),
     ...mapMutations([Config.EDITFORM])
   }
 }
