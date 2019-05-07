@@ -43,43 +43,32 @@ export default new Vuex.Store({
         store.dispatch(Config.INIT);
       }
     },
-    [Config.TOGGLE](store, payload) {
+    async [Config.TOGGLE](store, payload) {
+      let result = await XHR.patch(payload);
 
-      // debugger;
-
-
-      // axios.patch(Config.BASEURL + id, {
-      //     done: !done
-      //   })
-      //   .then(res => store.dispatch(Config.INIT))
-      //   .catch(err => console.log(err))
+      if (result === 'ok') store.dispatch(Config.INIT);
     },
-    [Config.EDIT](store, {
-      text,
+    async [Config.EDIT](store, {
+      todo,
       id
     }) {
-      const param = {
-        edit: false
-      };
-      try {
-        // debugger;
-        if (!text) {
-          throw new Error('수정할 내용을 입력');
-          // return;
-        }
-        param.todo = text;
-      } catch (e) {
-        console.log(e);
-      }
-      // console.log(param);
-      axios.patch(Config.BASEURL + id, param)
-        .then(res => store.dispatch(Config.INIT))
-        .catch(err => console.log(err))
+
+      let result = await XHR.patch({
+        id,
+        edit: false,
+        todo
+      })
+
+      if (result !== 'ok') throw new Error('수정 오류')
+
+      store.dispatch(Config.INIT)
     },
-    [Config.DEL](store, payload) {
-      axios.delete(Config.BASEURL + payload)
-        .then(res => store.dispatch(Config.INIT))
-        .catch(err => console.log(err))
+    async [Config.DELETE](store, payload) {
+      let result = await XHR.del(payload)
+
+      if (result !== 'ok') throw new Error('삭제 오류')
+
+      store.dispatch(Config.INIT)
     }
   }
 });

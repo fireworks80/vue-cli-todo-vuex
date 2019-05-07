@@ -2,8 +2,6 @@ import Config from '@/Config';
 
 const XHR = new XMLHttpRequest();
 
-// console.log(Config);
-
 const fetch = () => {
 
   return new Promise((resolve, reject) => {
@@ -14,7 +12,7 @@ const fetch = () => {
         if (XHR.status === 200) {
           resolve(JSON.parse(XHR.responseText));
         } else {
-          reject(new Error('fetch Ajax error'));
+          reject(new Error('fetch error'));
         }
         // debugger;
       }
@@ -34,7 +32,7 @@ const post = (data) => {
         if (XHR.status === 200 || XHR.status === 201) {
           resolve('ok');
         } else {
-          reject(new Error('add ajax error'));
+          reject(new Error('post error'));
         }
       }
     };
@@ -46,7 +44,47 @@ const post = (data) => {
   });
 };
 
+const patch = (data) => {
+  return new Promise((resolve, reject) => {
+    const toggle = () => {
+      if (XHR.readyState === XHR.DONE) {
+        // debugger;
+        if (XHR.status === 200 || XHR.status === 201) {
+          resolve('ok');
+        } else {
+          reject(new Error('patch error'));
+        }
+      }
+    };
+    XHR.onreadystatechange = toggle;
+    XHR.open('PATCH', `${Config.BASEURL}${data.id}`);
+    XHR.setRequestHeader('Content-Type', 'application/json');
+    XHR.send(JSON.stringify(data));
+  });
+};
+
+const del = id => {
+  return new Promise((resolve, reject) => {
+    const delItem = () => {
+
+      if (XHR.readyState === XHR.DONE) {
+        // debugger;
+        if (XHR.status === 200 || XHR.status === 201) {
+          resolve('ok');
+        } else {
+          reject(new Error('del error'));
+        }
+      }
+    };
+    XHR.onreadystatechange = delItem;
+    XHR.open('DELETE', `${Config.BASEURL}${id}`);
+    XHR.send();
+  });
+};
+
 export default {
   fetch,
-  post
+  post,
+  patch,
+  del
 };

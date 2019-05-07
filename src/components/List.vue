@@ -2,12 +2,12 @@
   <ul>
     <li @click.self="toggle(item)" v-for="item in todolist" :key="item.id">
       <p v-if="item.edit">
-        <input type="text" v-model="text" :placeholder="item.todo">
+        <input type="text" v-model="text" ref="newText" :placeholder="item.todo" :data-todo="item.todo">
         <span class="btn-wrap">
           <button @click.stop="editTodo(item.id)" class="button">수정완료</button>
         </span>
       </p>
-      <p v-else>
+      <p v-else @click="toggle(item)">
         <del v-if="item.done" :class="{'is-done': item.done}">{{ item.todo }}</del>
         <span v-else>{{ item.todo }}</span>
         <span class="btn-wrap">
@@ -34,18 +34,16 @@ export default {
   computed: mapGetters([Config.GETLIST]),
   methods: {
     editTodo(id) {
-      this.$store.dispatch(Config.EDIT, { text: this.text, id })
+      const input = this.$refs.newText;
+      // console.log(input[0].dataset.todo)
+      // this.text = this.text || item.todo;
+      this.$store.dispatch(Config.EDIT, { todo: this.text || input[0].dataset.todo, id })
       this.text = ''
     },
     toggle(todo) {
-      // debugger;
-      const newTodo = Object.create(todo);
-      newTodo.done = !newTodo.done;
-      console.log(todo);
-      console.log(newTodo);
-      this.$store.dispatch(Config.TOGGLE, todo)
+      this.$store.dispatch(Config.TOGGLE, {id: todo.id, done: !todo.done})
     },
-    ...mapActions([Config.DEL]),
+    ...mapActions([Config.DELETE]),
     ...mapMutations([Config.EDITFORM])
   }
 }
