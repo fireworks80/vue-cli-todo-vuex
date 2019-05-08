@@ -7,8 +7,8 @@
       v-for="(item, idx) in list"
       :key="idx"
     >
-      <h3 class="memo__tit">{{item.memo | filterTitle}}</h3>
-      <p class="memo__text">{{item.memo}}</p>
+      <h3 v-if="!item.visible" class="memo__tit">{{item.memo | filterTitle}}</h3>
+      <p v-else class="memo__text">{{item.memo}}</p>
       <time>{{item.date}}</time>
     </article>
   </div>
@@ -39,13 +39,17 @@ export default {
 .pannel {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
   }
 
   .memo {
     width: 33.33333%;
     height: 100%;
-    padding: 20px 0;
+    margin: 10px;
+    padding: 20px;
     box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+    background-color: #40093a;
+    line-height: 1.4;
 
     &__tit {
       margin: 0;
@@ -58,13 +62,22 @@ export default {
       white-space: nowrap;
       text-overflow: ellipsis;
       text-align: initial;
+    }
 
-      @at-root .memo.show-active & {
+    &.show-active {
+      position: relative;
+
+      time {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+
+      .memo__text {
         height: auto;
         white-space: normal;
         text-overflow: clip;
       }
     }
-
   }
 </style>

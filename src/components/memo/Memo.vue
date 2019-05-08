@@ -31,6 +31,7 @@ export default {
     },
     addMemo() {
       this.$store.dispatch(Config.ADD, {memo: this.content})
+      this.content = ''
       this.visibleModal();
     }
   }

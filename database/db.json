@@ -71,12 +71,6 @@
       "edit": false,
       "done": false,
       "id": 22
-    },
-    {
-      "todo": "test",
-      "edit": false,
-      "done": true,
-      "id": 23
     }
   ],
   "memos": [
@@ -91,6 +85,24 @@
       "date": "2019.5.8",
       "visible": false,
       "id": 6
+    },
+    {
+      "memo": "white-space:nowrap 해제 (줄바꿈이되야하니 해제해야한다)\nline-height (줄높이를 준다)\nheight (2줄을 보여주고싶다면 line-height의 2배, 3줄은 3배로 설정)\nword-wrap: break-word (잘라버릴 글자를 단어 단위로 만들어준다)\ndisplay:-webkit-box (플렉스 박스형태로 변환)\n-webkit-line-clamp:3 (보여줄 줄 갯수)\n-webkit-box-orient:vertical (플렉스 박스의 방향 설정)",
+      "date": "2019.5.8",
+      "visible": false,
+      "id": 7
+    },
+    {
+      "memo": "white-space:nowrap 해제 (줄바꿈이되야하니 해제해야한다)\nline-height (줄높이를 준다)\nheight (2줄을 보여주고싶다면 line-height의 2배, 3줄은 3배로 설정)\nword-wrap: break-word (잘라버릴 글자를 단어 단위로 만들어준다)\ndisplay:-webkit-box (플렉스 박스형태로 변환)\n-webkit-line-clamp:3 (보여줄 줄 갯수)\n-webkit-box-orient:vertical (플렉스 박스의 방향 설정)",
+      "date": "2019.5.8",
+      "visible": false,
+      "id": 8
+    },
+    {
+      "memo": "KOSPI가 3거래일 연속 상승세를 이어가며 2,100선 회복을 목전에 두고 있다. 지난주 사드(THAAD)배치와 관련된 중국의 보복 제제(한국 여행상품 판매 중단 등) 강화로 KOSPI의 변동성이 확대되며 주 초반 장중 한때 2,060선까",
+      "date": "2019.5.8",
+      "visible": false,
+      "id": 9
     }
   ]
 }
