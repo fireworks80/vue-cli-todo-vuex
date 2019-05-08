@@ -1,23 +1,22 @@
 <template>
   <div id="app">
+    <Anchor></Anchor>
     <Header></Header>
-    <Input></Input>
-    <List></List>
+    <router-view></router-view>
     <Footer></Footer>
   </div>
 </template>
 
 <script>
 import Header from './components/Header'
-import Input from './components/Input'
-import List from './components/List'
+import Anchor from './components/Anchor'
 import Footer from './components/Footer'
+
 export default {
   name: 'app',
   components: {
     Header,
-    Input,
-    List,
+    Anchor,
     Footer
   }
 }
