@@ -15,7 +15,25 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+  ul {
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  li {
+    width: 100%;
+  }
+
   a {
+    display: block;
+    padding: 15px 0;
     color: #fff;
+    text-decoration: none;
+  }
+
+  .router-link-exact-active {
+    background-color: rgba(0, 0, 0, .5);
   }
 </style>

@@ -41,10 +41,11 @@ const post = data => {
 }
 
 const patch = data => {
+  // debugger
   return new Promise((resolve, reject) => {
     const toggle = () => {
       if (XHR.readyState === XHR.DONE) {
-        // debugger;
+        // debugger
         if (XHR.status === 200 || XHR.status === 201) {
           resolve('ok')
         } else {

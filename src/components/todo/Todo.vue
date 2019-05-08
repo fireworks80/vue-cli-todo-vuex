@@ -5,8 +5,8 @@
   </section>
 </template>
 <script>
-import Input from '@/components/Input'
-import List from '@/components/List'
+import Input from '@/components/todo/Input'
+import List from '@/components/todo/List'
 export default {
   name: 'Todo',
   components: {
