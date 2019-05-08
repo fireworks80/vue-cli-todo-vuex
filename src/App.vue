@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Anchor></Anchor>
-    <Header></Header>
+    <Header :title="title"></Header>
     <router-view></router-view>
     <Footer></Footer>
   </div>
@@ -18,6 +18,12 @@ export default {
     Header,
     Anchor,
     Footer
+  },
+  computed: {
+    title() {
+      // console.log(this.$route.path)
+      return this.$route.path === '/' ? 'TODO' : 'MEMO'
+    }
   }
 }
 </script>

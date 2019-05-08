@@ -20,7 +20,7 @@
 </template>
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-import Config from '@/Config'
+import Config from '@/config/Config.todo'
 export default {
   name: 'List',
   data() {

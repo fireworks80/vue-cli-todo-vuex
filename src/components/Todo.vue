@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <section>
     <Input></Input>
     <List></List>
-  </div>
+  </section>
 </template>
 <script>
 import Input from '@/components/Input'

@@ -5,7 +5,7 @@
   </section>
 </template>
 <script>
-import Config from '@/Config'
+import Config from '@/config/Config.todo'
 export default {
   name: 'Search',
   data() {

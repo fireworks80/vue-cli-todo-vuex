@@ -1,13 +1,10 @@
-import Config from '@/Config';
+import Config from '@/config/Config.todo';
 
 const XHR = new XMLHttpRequest();
 
 const fetch = () => {
-
   return new Promise((resolve, reject) => {
-
     const getTodolist = () => {
-
       if (XHR.readyState === XHR.DONE) {
         if (XHR.status === 200) {
           resolve(JSON.parse(XHR.responseText));
@@ -20,13 +17,11 @@ const fetch = () => {
     XHR.onreadystatechange = getTodolist;
     XHR.open('GET', Config.BASEURL);
     XHR.send();
-
   });
 };
 
-const post = (data) => {
+const post = data => {
   return new Promise((resolve, reject) => {
-
     const addTodo = () => {
       if (XHR.readyState === XHR.DONE) {
         if (XHR.status === 200 || XHR.status === 201) {
@@ -44,7 +39,7 @@ const post = (data) => {
   });
 };
 
-const patch = (data) => {
+const patch = data => {
   return new Promise((resolve, reject) => {
     const toggle = () => {
       if (XHR.readyState === XHR.DONE) {
@@ -66,7 +61,6 @@ const patch = (data) => {
 const del = id => {
   return new Promise((resolve, reject) => {
     const delItem = () => {
-
       if (XHR.readyState === XHR.DONE) {
         // debugger;
         if (XHR.status === 200 || XHR.status === 201) {
