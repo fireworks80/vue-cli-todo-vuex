@@ -73,9 +73,9 @@
       "id": 22
     },
     {
-      "todo": "pitch",
+      "todo": "test",
       "edit": false,
-      "done": false,
+      "done": true,
       "id": 23
     }
   ]
