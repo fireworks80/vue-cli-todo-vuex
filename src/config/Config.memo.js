@@ -2,5 +2,5 @@ export default {
   BASEURL: '/api/memos/',
   FETCH: 'fetchMemo',
   ADD: 'addMemo',
-  VISIBLEMEMO: 'visibleMemo'
+  UPDATE: 'visibleMemo'
 }

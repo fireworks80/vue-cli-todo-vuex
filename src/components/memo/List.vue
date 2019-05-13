@@ -23,8 +23,7 @@ export default {
   }),
   methods: {
     visibleMemo(item) {
-      const newItem = Object.assign(item);
-      this.$store.dispatch(Config.VISIBLEMEMO, newItem)
+      this.$store.dispatch(Config.UPDATE, Object.assign(item))
     }
   },
   filters: {

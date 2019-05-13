@@ -28,7 +28,7 @@ export default {
 
       dispatch(Config.FETCH)
     },
-    async [Config.VISIBLEMEMO]({ dispatch }, payload) {
+    async [Config.UPDATE]({ dispatch }, payload) {
       payload.visible = !payload.visible
       let result = await XHR.update(Config.BASEURL, payload)
 
