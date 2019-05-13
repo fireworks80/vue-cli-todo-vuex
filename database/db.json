@@ -1,83 +1,23 @@
 {
   "todolist": [
     {
-      "todo": "키바인딩 추가",
-      "edit": false,
-      "done": false,
-      "id": 10
-    },
-    {
-      "todo": "31",
-      "edit": false,
-      "done": false,
-      "id": 11
-    },
-    {
-      "todo": "3",
-      "edit": false,
-      "done": false,
-      "id": 12
-    },
-    {
-      "todo": "4",
-      "edit": false,
-      "done": false,
-      "id": 14
-    },
-    {
-      "todo": "5",
-      "edit": false,
-      "done": false,
-      "id": 15
-    },
-    {
-      "todo": "6",
-      "edit": false,
-      "done": false,
-      "id": 16
-    },
-    {
-      "todo": "7",
-      "edit": false,
-      "done": false,
-      "id": 17
-    },
-    {
-      "todo": "ADD CONFIG",
-      "edit": false,
-      "done": false,
-      "id": 18
-    },
-    {
-      "todo": "st",
-      "edit": false,
-      "done": false,
-      "id": 19
-    },
-    {
-      "todo": "hello",
-      "edit": false,
-      "done": false,
-      "id": 20
-    },
-    {
-      "todo": "test",
-      "edit": false,
-      "done": false,
-      "id": 21
-    },
-    {
-      "todo": "dispatch",
+      "todo": "WORLD",
       "edit": false,
       "done": false,
       "id": 22
+    },
+    {
+      "todo": "add",
+      "edit": false,
+      "done": false,
+      "id": 23
     }
   ],
   "memos": [
     {
       "memo": "나는 자랑스런 태극기 앞에 조국과 민족에 무궁한 영광을 위하여 몸과 마음을 바쳐 충성을 다할 것을 궂게 다짐힙니다.",
       "date": "2019.5.8",
-      "visible": false,
+      "visible": true,
       "id": 5
     },
     {
@@ -109,6 +49,36 @@
       "date": "2019.5.8",
       "visible": false,
       "id": 10
+    },
+    {
+      "memo": "테스트를 해보려 하는데 무얼 테스트 해야 할지도 모르겠고 책을 읽고 싶은데 무슨 책을 읽어야 할지도 모르겠고 책을 읽어도 머리에 남는게 없으니 어찌해야 할지도 모르겠고...",
+      "date": "2019.5.9",
+      "visible": false,
+      "id": 11
+    },
+    {
+      "memo": "메모메모모메몲ㅇ노라널ㄷ품ㄴ이ㅏㅓㅟㄴㅇ마ㅓㄹㅊㅇ",
+      "date": "2019.5.9",
+      "visible": false,
+      "id": 12
+    },
+    {
+      "memo": "이것은 테스트",
+      "date": "2019.5.13",
+      "visible": false,
+      "id": 13
+    },
+    {
+      "memo": "이것도 테스트",
+      "date": "2019.5.13",
+      "visible": false,
+      "id": 14
+    },
+    {
+      "memo": "또 추가를 합니다",
+      "date": "2019.5.13",
+      "visible": false,
+      "id": 15
     }
   ]
 }

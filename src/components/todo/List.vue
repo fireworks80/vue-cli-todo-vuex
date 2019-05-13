@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <li @click.self="toggle(item)" v-for="item in todolist" :key="item.id">
+    <li @click.self="toggle(item)" v-for="item in list" :key="item.id">
       <p v-if="item.edit">
         <input type="text" v-model="text" ref="newText" :placeholder="item.todo" :data-todo="item.todo">
         <span class="btn-wrap">
@@ -19,7 +19,7 @@
   </ul>
 </template>
 <script>
-import { mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import Config from '@/config/Config.todo'
 export default {
   name: 'List',
@@ -29,15 +29,15 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch(Config.INIT)
+    this.$store.dispatch(Config.FETCH)
   },
-  computed: mapGetters([Config.GETLIST]),
+  computed: mapState({
+    list: state => state.todos.todolist
+  }),
   methods: {
     editTodo(id) {
       const input = this.$refs.newText;
-      // console.log(input[0].dataset.todo)
-      // this.text = this.text || item.todo;
-      this.$store.dispatch(Config.EDIT, { todo: this.text || input[0].dataset.todo, id })
+      this.$store.dispatch(Config.UPDATE, { todo: this.text || input[0].dataset.todo, id })
       this.text = ''
     },
     toggle(todo) {

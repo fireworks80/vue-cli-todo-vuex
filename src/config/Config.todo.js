@@ -1,10 +1,9 @@
 export default {
   BASEURL: '/api/todolist/',
-  INIT: 'initTodolist',
-  EDIT: 'editTodo',
+  FETCH: 'todolist',
+  UPDATE: 'updateTodo',
   ADD: 'addTodo',
   EDITFORM: 'editTodoForm',
   DELETE: 'delTodo',
-  TOGGLE: 'toggleDone',
-  GETLIST: 'todolist'
+  TOGGLE: 'toggleDone'
 }

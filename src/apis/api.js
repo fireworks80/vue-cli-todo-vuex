@@ -1,8 +1,13 @@
-import Config from '@/config/Config.memo'
-
 const XHR = new XMLHttpRequest()
 
-const fetch = () => {
+const MSG = {
+  GET: 'GET API ERROR',
+  UPDATE: 'UPDATE API ERROR',
+  ADD: 'ADD API ERROR',
+  DEL: 'DEL API ERROR'
+}
+
+const get = url => {
   return new Promise((resolve, reject) => {
     const getMemolist = () => {
       if (XHR.readyState === XHR.DONE) {
@@ -10,38 +15,19 @@ const fetch = () => {
           // debugger
           resolve(JSON.parse(XHR.responseText))
         } else {
-          reject(new Error('fetch error'))
+          reject(new Error(MSG.GET))
         }
         // debugger;
       }
     }
+
     XHR.onreadystatechange = getMemolist
-    XHR.open('GET', Config.BASEURL)
+    XHR.open('GET', url)
     XHR.send()
   })
 }
 
-const post = data => {
-  return new Promise((resolve, reject) => {
-    const addTodo = () => {
-      if (XHR.readyState === XHR.DONE) {
-        if (XHR.status === 200 || XHR.status === 201) {
-          resolve('ok')
-        } else {
-          reject(new Error('post error'))
-        }
-      }
-    }
-
-    XHR.onreadystatechange = addTodo
-    XHR.open('POST', Config.BASEURL)
-    XHR.setRequestHeader('Content-Type', 'application/json')
-    XHR.send(JSON.stringify(data))
-  })
-}
-
-const patch = data => {
-  // debugger
+const update = (url, data) => {
   return new Promise((resolve, reject) => {
     const toggle = () => {
       if (XHR.readyState === XHR.DONE) {
@@ -49,18 +35,38 @@ const patch = data => {
         if (XHR.status === 200 || XHR.status === 201) {
           resolve('ok')
         } else {
-          reject(new Error('patch error'))
+          reject(new Error(MSG.UPDATE))
         }
       }
     }
+
     XHR.onreadystatechange = toggle
-    XHR.open('PATCH', `${Config.BASEURL}${data.id}`)
+    XHR.open('PATCH', `${url}${data.id}`)
     XHR.setRequestHeader('Content-Type', 'application/json')
     XHR.send(JSON.stringify(data))
   })
 }
 
-const del = id => {
+const add = (url, data) => {
+  return new Promise((resolve, reject) => {
+    const addTodo = () => {
+      if (XHR.readyState === XHR.DONE) {
+        if (XHR.status === 200 || XHR.status === 201) {
+          resolve('ok')
+        } else {
+          reject(new Error(MSG.ADD))
+        }
+      }
+    }
+
+    XHR.onreadystatechange = addTodo
+    XHR.open('POST', url)
+    XHR.setRequestHeader('Content-Type', 'application/json')
+    XHR.send(JSON.stringify(data))
+  })
+}
+
+const del = (url, id) => {
   return new Promise((resolve, reject) => {
     const delItem = () => {
       if (XHR.readyState === XHR.DONE) {
@@ -68,19 +74,19 @@ const del = id => {
         if (XHR.status === 200 || XHR.status === 201) {
           resolve('ok')
         } else {
-          reject(new Error('del error'))
+          reject(new Error(MSG.DEL))
         }
       }
     }
     XHR.onreadystatechange = delItem
-    XHR.open('DELETE', `${Config.BASEURL}${id}`)
+    XHR.open('DELETE', `${url}${id}`)
     XHR.send()
   })
 }
 
 export default {
-  fetch,
-  post,
-  patch,
+  get,
+  add,
+  update,
   del
 }

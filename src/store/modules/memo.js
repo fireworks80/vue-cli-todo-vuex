@@ -1,5 +1,5 @@
 import Config from '@/config/Config.memo'
-import XHR from '@/apis/api.memo'
+import XHR from '@/apis/api'
 
 export default {
   state: {
@@ -13,7 +13,7 @@ export default {
   },
   actions: {
     async [Config.FETCH]({ commit }) {
-      commit(Config.FETCH, await XHR.fetch())
+      commit(Config.FETCH, await XHR.get(Config.BASEURL))
     },
     async [Config.ADD]({ dispatch }, payload) {
       const year = new Date().getFullYear()
@@ -22,7 +22,7 @@ export default {
       payload.date = `${year}.${month}.${date}`
       payload.visible = false
 
-      let result = await XHR.post(payload)
+      let result = await XHR.add(Config.BASEURL, payload)
 
       if (result !== 'ok') throw new Error('저장에 문제가 생김')
 
@@ -30,9 +30,9 @@ export default {
     },
     async [Config.VISIBLEMEMO]({ dispatch }, payload) {
       payload.visible = !payload.visible
-      let result = await XHR.patch(payload)
+      let result = await XHR.update(Config.BASEURL, payload)
 
-      if (result !== 'ok') throw new Error('patch에 문제 생김')
+      if (result !== 'ok') throw new Error('update에 문제 생김')
       dispatch(Config.FETCH)
     }
   }
