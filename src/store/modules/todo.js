@@ -16,7 +16,7 @@ export default {
     [Config.FETCH](state, payload) {
       // console.log(payload)
       state.todolist = payload
-      console.log('todolist: ', state.todolist)
+      // console.log('todolist: ', state.todolist)
     },
     [Config.EDITFORM](state, payload) {
       // console.log(payload)
@@ -41,20 +41,8 @@ export default {
         store.dispatch(Config.FETCH)
       }
     },
-    async [Config.TOGGLE](store, payload) {
-      // console.log('action: ', payload)
+    async [Config.UPDATE](store, payload) {
       let result = await XHR.update(Config.BASEURL, payload)
-
-      if (result !== 'ok') throw new Error('업데이트 오류')
-
-      store.dispatch(Config.FETCH)
-    },
-    async [Config.UPDATE](store, { todo, id }) {
-      let result = await XHR.update(Config.BASEURL, {
-        id,
-        edit: false,
-        todo
-      })
 
       if (result !== 'ok') throw new Error('수정 오류')
 

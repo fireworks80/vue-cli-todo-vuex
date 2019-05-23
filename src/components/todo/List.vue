@@ -3,21 +3,21 @@
     <li class="todo__item" v-for="item in list" :key="item.id" :class="{'editing' : editedTodo === item}">
       <p>
         <input class="todo__check" type="checkbox" :checked="item.done" @change="toggleDone(item)">
-        <label @dblclick=editTodo(item) class="todo__text" :class="{'done': item.done}">{{item.todo}}</label>
-        <button type="button" class="todo__del"><span class="a11y">삭제</span></button>
+        <label @dblclick=editTodoView(item) class="todo__text" :class="{'done': item.done}">{{item.todo}}</label>
+        <button type="button" class="todo__del" @click="delTodo(item.id)"><span class="a11y">삭제</span></button>
       </p>
-      <input v-todo-focus="item === editedTodo" @blur="doneEdit(item)" @keyup.esc="cancelEdit()" type="text" v-model="text" class="todo__edit-field">
+      <input v-todo-focus="item === editedTodo" @blur="doneEdit(item)" @keyup.esc="cancelEdit()" type="text" v-model="editText" class="todo__edit-field">
     </li>
   </ul>
 </template>
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import Config from '@/config/Config.todo'
 export default {
   name: 'List',
   data() {
     return {
-      text: '',
+      editText: '',
       editedTodo: null
     }
   },
@@ -28,23 +28,27 @@ export default {
     list: state => state.todos.todolist
   }),
   methods: {
-    editTodo(item) {
-      // debugger;
-      // const input = this.$refs.newText;
-      // this.$store.dispatch(Config.UPDATE, { todo: this.text || input[0].dataset.todo, id })
+    editTodoView(item) {
       this.editedTodo = item
-      this.text = item.todo
+      this.editText = item.todo
     },
     cancelEdit() {
       this.editedTodo = null;
     },
     doneEdit(item) {
+      // debugger;
       if (!this.editedTodo) return;
-      this.editedTodo = null;
+
+      if (this.editText !== item.todo) {
+        this.$store.dispatch(Config.UPDATE, {...item, todo: this.editText});
+      }
+
+      this.cancelEdit()
     },
     toggleDone(item) {
-      this.$store.dispatch(Config.TOGGLE, {...item, done: !item.done})
-    }
+      this.$store.dispatch(Config.UPDATE, {...item, done: !item.done})
+    },
+    ...mapActions([Config.DELETE])
   },
   directives: {
     'todo-focus'(el, binding) {

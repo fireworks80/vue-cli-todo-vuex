@@ -1,9 +1,9 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
-const port = 3000
 const fs = require('fs')
 const filePath = './database/server.json'
+const port = 3000
 const encoding = 'utf8'
 let count = 0
 
@@ -60,7 +60,7 @@ app.post('/api/todos', (req, res) => {
 
 app.patch('/api/todos/:id', (req, res) => {
   const editData = { ...req.body }
-  console.log(editData)
+  // console.log(editData)
   fs.readFile(filePath, encoding, (err, data) => {
     if (err) throw new Error(err)
 
@@ -72,6 +72,29 @@ app.patch('/api/todos/:id', (req, res) => {
       }
     })
     // console.log('after: ', dataObj)
+    fs.writeFile(filePath, JSON.stringify(dataObj), err => {
+      if (err) throw new Error(err)
+      res.send('ok')
+    })
+  })
+})
+
+app.delete('/api/todos/:id', (req, res) => {
+  // const req.params.id
+
+  const delId = parseInt(req.params.id, 10)
+
+  fs.readFile(filePath, encoding, (err, data) => {
+    if (err) throw new Error(err)
+
+    const dataObj = JSON.parse(data)
+
+    dataObj.forEach((item, idx) => {
+      if (item.id === delId) {
+        dataObj.splice(idx, 1)
+      }
+    })
+
     fs.writeFile(filePath, JSON.stringify(dataObj), err => {
       if (err) throw new Error(err)
       res.send('ok')
