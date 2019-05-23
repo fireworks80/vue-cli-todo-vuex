@@ -1,22 +1,22 @@
 <template>
   <div id="app">
-    <Anchor></Anchor>
+    <Menu></Menu>
     <Header :title="title"></Header>
     <router-view></router-view>
-    <Footer></Footer>
+    <!--<Footer></Footer> -->
   </div>
 </template>
 
 <script>
+import Menu from './components/Menu'
 import Header from './components/Header'
-import Anchor from './components/Anchor'
 import Footer from './components/Footer'
 
 export default {
   name: 'app',
   components: {
     Header,
-    Anchor,
+    Menu,
     Footer
   },
   computed: {
@@ -28,7 +28,14 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+$font-primary: 16px;
+$font-current: 10px;
+
+
+html {
+  font-size: ($font-current / $font-primary * 100%);
+}
 
 *,
 *::before,
@@ -36,21 +43,33 @@ export default {
   box-sizing: border-box;
 }
 
-body {
+* {
   margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #f6f8f9;
+}
+
+ul {
+  list-style: none;
 }
 
 #app {
+  // outline: 1px dashed;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  color: #fff;
-  background-color: #5a0050;
   max-width: 720px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: {
+    top: em(100px);
+    left: auto;
+    right: auto;
+  }
+  font-size: 1.6rem;
 }
 
 .a11y {

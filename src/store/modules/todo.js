@@ -1,6 +1,8 @@
 import Config from '@/config/Config.todo'
 import XHR from '@/apis/api'
 
+let count = 0
+
 export default {
   state: {
     todolist: []
@@ -14,6 +16,7 @@ export default {
     [Config.FETCH](state, payload) {
       // console.log(payload)
       state.todolist = payload
+      console.log('todolist: ', state.todolist)
     },
     [Config.EDITFORM](state, payload) {
       // console.log(payload)
@@ -29,8 +32,8 @@ export default {
     async [Config.ADD](store, payload) {
       // console.log(payload)
       let result = await XHR.add(Config.BASEURL, {
+        id: (count += 1),
         todo: payload,
-        edit: false,
         done: false
       })
 
@@ -39,9 +42,12 @@ export default {
       }
     },
     async [Config.TOGGLE](store, payload) {
+      // console.log('action: ', payload)
       let result = await XHR.update(Config.BASEURL, payload)
 
-      if (result === 'ok') store.dispatch(Config.FETCH)
+      if (result !== 'ok') throw new Error('업데이트 오류')
+
+      store.dispatch(Config.FETCH)
     },
     async [Config.UPDATE](store, { todo, id }) {
       let result = await XHR.update(Config.BASEURL, {
@@ -60,6 +66,9 @@ export default {
       if (result !== 'ok') throw new Error('삭제 오류')
 
       store.dispatch(Config.FETCH)
+    },
+    async [Config.EDITFORM](store, payload) {
+      await XHR.update(Config.BASEURL, { id: payload, edit: true })
     }
   }
 }

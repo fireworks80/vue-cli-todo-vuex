@@ -12,7 +12,7 @@ const get = url => {
     const getMemolist = () => {
       if (XHR.readyState === XHR.DONE) {
         if (XHR.status === 200) {
-          // debugger
+          // console.log(XHR)
           resolve(JSON.parse(XHR.responseText))
         } else {
           reject(new Error(MSG.GET))

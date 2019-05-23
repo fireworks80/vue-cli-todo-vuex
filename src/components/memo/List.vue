@@ -15,7 +15,7 @@
 </template>
 <script>
 import Config from '@/config/Config.memo'
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 export default {
   name: 'List',
   computed: mapState({
@@ -29,54 +29,56 @@ export default {
   filters: {
     filterTitle(text) {
       const MAXTEXTLEN = 10
-      return text.length > MAXTEXTLEN ? text.substr(0, MAXTEXTLEN) + '...' : text
+      return text.length > MAXTEXTLEN
+        ? text.substr(0, MAXTEXTLEN) + '...'
+        : text
     }
   }
 }
 </script>
 <style lang="scss" scoped>
 .pannel {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.memo {
+  width: 33.33333%;
+  height: 100%;
+  margin: 10px;
+  padding: 20px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  background-color: #40093a;
+  line-height: 1.4;
+
+  &__tit {
+    margin: 0;
   }
 
-  .memo {
-    width: 33.33333%;
-    height: 100%;
-    margin: 10px;
-    padding: 20px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, .3);
-    background-color: #40093a;
-    line-height: 1.4;
+  &__text {
+    // outline: 1px dashed;
+    height: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: initial;
+  }
 
-    &__tit {
-      margin: 0;
+  &.show-active {
+    position: relative;
+
+    time {
+      position: absolute;
+      top: 10px;
+      right: 10px;
     }
 
-    &__text {
-      // outline: 1px dashed;
-      height: 20px;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      text-align: initial;
-    }
-
-    &.show-active {
-      position: relative;
-
-      time {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-      }
-
-      .memo__text {
-        height: auto;
-        white-space: normal;
-        text-overflow: clip;
-      }
+    .memo__text {
+      height: auto;
+      white-space: normal;
+      text-overflow: clip;
     }
   }
+}
 </style>

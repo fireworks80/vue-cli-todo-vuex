@@ -9,7 +9,6 @@ export default {
 </script>
 <style lang="scss" scoped>
   h1 {
-    margin: 0;
-    padding: 2em 0;
+    margin-bottom: em(30px);
   }
 </style>

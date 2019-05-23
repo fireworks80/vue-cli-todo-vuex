@@ -1,20 +1,12 @@
 <template>
-  <ul>
-    <li @click.self="toggle(item)" v-for="item in list" :key="item.id">
-      <p v-if="item.edit">
-        <input type="text" v-model="text" ref="newText" :placeholder="item.todo" :data-todo="item.todo">
-        <span class="btn-wrap">
-          <button @click.stop="editTodo(item.id)" class="button">수정완료</button>
-        </span>
+  <ul class="todo__list">
+    <li class="todo__item" v-for="item in list" :key="item.id" :class="{'editing' : editedTodo === item}">
+      <p>
+        <input class="todo__check" type="checkbox" :checked="item.done" @change="toggleDone(item)">
+        <label @dblclick=editTodo(item) class="todo__text" :class="{'done': item.done}">{{item.todo}}</label>
+        <button type="button" class="todo__del"><span class="a11y">삭제</span></button>
       </p>
-      <p v-else @click="toggle(item)">
-        <del v-if="item.done" :class="{'is-done': item.done}">{{ item.todo }}</del>
-        <span v-else>{{ item.todo }}</span>
-        <span class="btn-wrap">
-          <button @click.stop="editTodoForm(item.id)" type="button">수정</button>
-          <button @click.stop="delTodo(item.id)" type="button">삭제</button>
-        </span>
-      </p>
+      <input v-todo-focus="item === editedTodo" @blur="doneEdit(item)" @keyup.esc="cancelEdit()" type="text" v-model="text" class="todo__edit-field">
     </li>
   </ul>
 </template>
@@ -25,7 +17,8 @@ export default {
   name: 'List',
   data() {
     return {
-      text: ''
+      text: '',
+      editedTodo: null
     }
   },
   created() {
@@ -35,46 +28,158 @@ export default {
     list: state => state.todos.todolist
   }),
   methods: {
-    editTodo(id) {
-      const input = this.$refs.newText;
-      this.$store.dispatch(Config.UPDATE, { todo: this.text || input[0].dataset.todo, id })
-      this.text = ''
+    editTodo(item) {
+      // debugger;
+      // const input = this.$refs.newText;
+      // this.$store.dispatch(Config.UPDATE, { todo: this.text || input[0].dataset.todo, id })
+      this.editedTodo = item
+      this.text = item.todo
     },
-    toggle(todo) {
-      this.$store.dispatch(Config.TOGGLE, {id: todo.id, done: !todo.done})
+    cancelEdit() {
+      this.editedTodo = null;
     },
-    ...mapActions([Config.DELETE]),
-    ...mapMutations([Config.EDITFORM])
+    doneEdit(item) {
+      if (!this.editedTodo) return;
+      this.editedTodo = null;
+    },
+    toggleDone(item) {
+      this.$store.dispatch(Config.TOGGLE, {...item, done: !item.done})
+    }
+  },
+  directives: {
+    'todo-focus'(el, binding) {
+      if (binding.value) el.focus();
+    }
   }
 }
 </script>
 <style lang="scss" scoped>
-ul {
+$size: 30px;
+
+.todo__list {
   list-style: none;
   margin: 0;
-  padding: 2em;
+  font-size: em(20px);
 }
 
-p {
-  margin: 0;
-}
-
-li {
-  position: relative;
-  padding: 2em;
-  margin-bottom: .5em;
-  cursor: pointer;
-  background-color: #730362;
+.todo__item {
+  border-bottom: 1px solid #ddd;
   text-align: initial;
+
+  p {
+    position: relative;
+  }
+
+  &:hover .todo__del {
+    opacity: 1;
+  }
 }
+
+.todo__check {
+  position: absolute;
+  left: em(12px);
+  top: em(12px);
+  z-index: 5;
+  width: em(50px);
+  height: em(50px);
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+
+  &:checked {
+    outline: none;
+
+    & + .todo__text::after {
+      opacity: 1;
+    }
+  }
+}
+
+.todo__text {
+
+  display: block;
+  padding: em(15px) em(40px) em(15px) em(60px);
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    left: em(10px);
+    top: 50%;
+    transform: translateY(-50%);
+    width: em($size);
+    height: em($size);
+  }
+
+  &::before {
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  &::after {
+    content: 'V';
+    text-align: center;
+    line-height: $size;
+    opacity: 0;
+  }
+
+  &.done {
+    text-decoration: line-through;
+    color: #ddd;
+  }
+}
+
+.todo__del {
+  position: absolute;
+  right: em(40px);
+  top: 50%;
+  width: em(20px);
+  height: em(20px);
+  transform: translateY(-50%);
+  background: none;
+  border: 0;
+  opacity: 0;
+  transition: opacity .5s;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: em(1px);
+    background-color: #959595;
+  }
+
+  &::before {
+    transform: rotate(-45deg);
+  }
+
+  &::after {
+    transform: rotate(45deg);
+  }
+}
+
+.todo__edit-field {
+  display: none;
+  margin-left: em(60px);
+  padding: em(13px) 0;
+  // line-height: 1.2;
+  font-size: inherit;
+}
+
+.editing p {
+  display: none;
+}
+
+.editing .todo__edit-field {
+  display: block;
+}
+
+
 .is-done {
   color: red;
 }
 
-.btn-wrap {
-  position: absolute;
-  right: 2em;
-  top: 50%;
-  transform: translateY(-50%);
-}
 </style>

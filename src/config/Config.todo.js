@@ -1,5 +1,5 @@
 export default {
-  BASEURL: '/api/todolist/',
+  BASEURL: '/api/todos/',
   FETCH: 'todolist',
   UPDATE: 'updateTodo',
   ADD: 'addTodo',

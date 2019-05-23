@@ -39,7 +39,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 
-
   .modal {
     position: fixed;
     top: 50px;
