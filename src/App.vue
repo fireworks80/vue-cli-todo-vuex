@@ -21,7 +21,7 @@ export default {
   },
   computed: {
     title() {
-      // console.log(this.$route.path)
+      console.log(this.$route.path)
       return this.$route.path === '/' ? 'TODO' : 'MEMO'
     }
   }

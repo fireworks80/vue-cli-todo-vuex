@@ -1,0 +1,6 @@
+// 0px 0px 5px 0px rgba(0, 0, 0, 0.1)
+@mixin box-shadow($value) {
+  -webkit-box-shadow: $value;
+  -moz-box-shadow: $value;
+  box-shadow: $value;
+}

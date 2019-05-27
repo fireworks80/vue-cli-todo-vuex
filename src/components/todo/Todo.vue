@@ -17,9 +17,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .todo-wrap {
+  @include box-shadow(0px 0px 5px 0px rgba(0, 0, 0, 0.1));
   background-color: #fff;
-  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
 }
 </style>
