@@ -21,8 +21,9 @@ export default {
   },
   computed: {
     title() {
-      console.log(this.$route.path)
-      return this.$route.path === '/' ? 'TODO' : 'MEMO'
+      const currentPath = this.$route.path.substr(1)
+
+      return currentPath ? currentPath.toUpperCase() : 'HOME'
     }
   }
 }

@@ -4,12 +4,27 @@
 export default [
   {
     path: '/',
-    name: 'todo',
-    component: () => import('@/components/todo/Todo')
+    name: 'HOME',
+    beforeEnter(to, from, next) {
+      // console.log(to)
+      // next('/todo')
+    }
+  },
+  {
+    path: '/todo',
+    name: 'TODO',
+    component: () => import('@/components/todo/Todo'),
+    beforeEnter(to, from, next) {
+      next()
+    }
   },
   {
     path: '/memo',
-    name: 'memo',
+    name: 'MEMO',
     component: () => import('@/components/memo/Memo')
+  },
+  {
+    path: '*',
+    component: () => import('@/components/error/NotFound')
   }
 ]

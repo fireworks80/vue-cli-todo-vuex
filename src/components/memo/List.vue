@@ -1,17 +1,17 @@
 <template>
   <div>
     <article
-      :class="{'show-active': currentMemo === item}"
+      :class="{'show-active': current === item}"
       class="memo"
       v-for="(item, idx) in list"
       :key="idx"
     >
       <div @click="visibleMemo(item)">
-        <h3 v-if="currentMemo !== item">{{item.memo | filterTitle}}</h3>
+        <h3 v-if="current !== item">{{item.memo | filterTitle}}</h3>
         <textarea class="memo__text" v-else v-model="editText" @blur="doneMemo(item)" v-focus></textarea>
         <time class="memo__prev-time">{{item.date}}</time>
       </div>
-      <div class="memo__btn-wrap" v-if="currentMemo">
+      <div class="memo__btn-wrap" v-if="current === item">
         <time>{{item.date}}</time>
         <button class="memo__close" type="button" @click="doneMemo(item)">닫기</button>
       </div>
@@ -25,7 +25,7 @@ export default {
   name: 'List',
   data() {
     return {
-      currentMemo: null,
+      current: null,
       editText: null
     }
   },
@@ -34,11 +34,11 @@ export default {
   }),
   methods: {
     visibleMemo(item) {
-      this.currentMemo = item;
+      this.current = item;
       this.editText = item.memo;
     },
     hideMemo() {
-      this.currentMemo = null;
+      this.current = null;
     },
     doneMemo(item) {
       this.hideMemo();
@@ -50,7 +50,7 @@ export default {
   },
   filters: {
     filterTitle(text) {
-      const MAXTEXTLEN = 10
+      const MAXTEXTLEN = 30
       return text.length > MAXTEXTLEN
         ? text.substr(0, MAXTEXTLEN) + '...'
         : text
@@ -72,6 +72,7 @@ export default {
   position: relative;
   margin: 10px;
   padding: .5em;
+  border-radius: .3em;
   background-color: #fff;
   line-height: 1.4;
   text-align: initial;
