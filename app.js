@@ -84,13 +84,15 @@ app.post('/api/todos', (req, res) => {
 
 app.post('/api/memos', (req, res) => {
   fs.readFile(config.path.memo, config.encoding, (err, data) => {
+    const DATE = new Date()
+
     if (err) throw new Error(err)
 
     const dataObj = JSON.parse(data)
     const newData = {
       ...req.body,
-      id: new Date().getTime(),
-      done: false
+      id: DATE.getTime(),
+      date: `${DATE.getFullYear()}.${DATE.getMonth() + 1}.${DATE.getDate()}`
     }
 
     dataObj.push(newData)

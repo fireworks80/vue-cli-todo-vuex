@@ -9,6 +9,7 @@
       <div @click="visibleMemo(item)">
         <h3 v-if="currentMemo !== item">{{item.memo | filterTitle}}</h3>
         <textarea class="memo__text" v-else v-model="editText" @blur="doneMemo(item)" v-focus></textarea>
+        <time class="memo__prev-time">{{item.date}}</time>
       </div>
       <div class="memo__btn-wrap" v-if="currentMemo">
         <time>{{item.date}}</time>
@@ -68,6 +69,7 @@ export default {
 
 .memo {
   @include box-shadow(0px 0px 5px 0px rgba(0, 0, 0, 0.1));
+  position: relative;
   margin: 10px;
   padding: .5em;
   background-color: #fff;
@@ -89,6 +91,23 @@ export default {
     .memo__text {
       min-height: 30px;
       width: 100%;
+    }
+  }
+
+  &__prev-time {
+    position: absolute;
+    right: 1em;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity .45s;
+
+    @at-root #{$this}:hover & {
+      opacity: 1;
+    }
+
+    @at-root #{$this}.show-active & {
+      display: none;
     }
   }
 

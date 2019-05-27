@@ -16,12 +16,6 @@ export default {
       commit(Config.FETCH, await XHR.get(Config.BASEURL))
     },
     async [Config.ADD]({ dispatch }, payload) {
-      const year = new Date().getFullYear()
-      const month = new Date().getMonth() + 1
-      const date = new Date().getDate()
-      payload.date = `${year}.${month}.${date}`
-      payload.visible = false
-
       let result = await XHR.add(Config.BASEURL, payload)
 
       if (result !== 'ok') throw new Error('저장에 문제가 생김')
