@@ -1,22 +1,17 @@
-// import Todo from '@/components/todo/Todo'
-// import Memo from '@/components/memo/Memo'
-
 export default [
   {
     path: '/',
     name: 'HOME',
+    component: () => import('@/components/home/Home'),
     beforeEnter(to, from, next) {
       // console.log(to)
-      // next('/todo')
+      next()
     }
   },
   {
     path: '/todo',
     name: 'TODO',
-    component: () => import('@/components/todo/Todo'),
-    beforeEnter(to, from, next) {
-      next()
-    }
+    component: () => import('@/components/todo/Todo')
   },
   {
     path: '/memo',

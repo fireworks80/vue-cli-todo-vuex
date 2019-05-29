@@ -1,7 +1,7 @@
 <template>
   <div>
     <article
-      :class="{'show-active': current === item}"
+      :class="{'is-active': current === item}"
       class="memo"
       v-for="(item, idx) in list"
       :key="idx"
@@ -70,29 +70,25 @@ export default {
 .memo {
   @include box-shadow(0px 0px 5px 0px rgba(0, 0, 0, 0.1));
   position: relative;
-  margin: 10px;
   padding: .5em;
   border-radius: .3em;
   background-color: #fff;
   line-height: 1.4;
   text-align: initial;
+  transition: all .45s;
 
   $this: &;
 
   &__text {
     // outline: 1px dashed;
-    height: 20px;
-    overflow: hidden;
+    width: 100%;
+    min-height: 20px;
     resize: none;
   }
 
-  &.show-active {
+  &.is-active {
     position: relative;
-
-    .memo__text {
-      min-height: 30px;
-      width: 100%;
-    }
+    z-index: 5;
   }
 
   &__prev-time {
@@ -103,11 +99,11 @@ export default {
     opacity: 0;
     transition: opacity .45s;
 
-    @at-root #{$this}:hover & {
+    #{$this}:hover & {
       opacity: 1;
     }
 
-    @at-root #{$this}.show-active & {
+    #{$this}.is-active & {
       display: none;
     }
   }

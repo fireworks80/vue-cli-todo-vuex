@@ -3,21 +3,18 @@
     <Menu></Menu>
     <Header :title="title"></Header>
     <router-view></router-view>
-    <!--<Footer></Footer> -->
   </div>
 </template>
 
 <script>
 import Menu from './components/Menu'
 import Header from './components/Header'
-import Footer from './components/Footer'
 
 export default {
   name: 'app',
   components: {
     Header,
-    Menu,
-    Footer
+    Menu
   },
   computed: {
     title() {
@@ -65,6 +62,10 @@ ul {
   text-align: center;
   color: #2c3e50;
   max-width: 720px;
+  padding: {
+    left: 10px;
+    right: 10px;
+  }
   margin: {
     top: em(100px);
     left: auto;

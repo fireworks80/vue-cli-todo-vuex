@@ -2,57 +2,49 @@
   <section>
     <h2 class="a11y">memo</h2>
     <List></List>
-    <button type="button" @click="visibleModal">+</button>
-    <article class="modal" :class="{'is-active': isModalShow}">
-      <h2>모달</h2>
-      <p><textarea name="" id="" cols="30" rows="10" placeholder="내용" v-model="content"></textarea></p>
-      <button @click="addMemo">저장</button>
-    </article>
+    <Modal :active="isShow" @cancel="toggleModal"></Modal>
+    <button class="btn-memo" type="button" @click="toggleModal">+</button>
   </section>
 </template>
 <script>
 import Config from '@/config/Config.memo'
 import List from '@/components/memo/List'
+import Modal from '@/components/memo/Modal'
 export default {
   name: 'MEMO',
-  components: { List },
+  components: { List, Modal },
   data() {
     return {
-      isModalShow: false,
-      content: ''
+      isShow: false
     }
   },
   created() {
     this.$store.dispatch(Config.FETCH)
   },
   methods: {
-    visibleModal() {
-      this.isModalShow = !this.isModalShow
-    },
-    addMemo() {
-      this.$store.dispatch(Config.ADD, {memo: this.content})
-      this.content = ''
-      this.visibleModal();
+    toggleModal() {
+      this.isShow = !this.isShow
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-
-  .modal {
+  .btn-memo {
+    @include box-shadow;
     position: fixed;
-    top: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: none;
-    max-width: 600px;
-    width: 100%;
-    background-color: #fff;
-    color: initial;
-    border: 1px solid red;
-  }
+    bottom: 10px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    border-radius: 50%;
+    border: 0;
+    cursor: pointer;
+    transition: background-color .43s;
 
-  .is-active {
-    display: block;
+    &:hover {
+      background-color: #969696;
+      color: #fff;
+    }
   }
 </style>
