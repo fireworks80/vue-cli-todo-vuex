@@ -2,11 +2,7 @@ export default [
   {
     path: '/',
     name: 'HOME',
-    component: () => import('@/components/home/Home'),
-    beforeEnter(to, from, next) {
-      // console.log(to)
-      next()
-    }
+    component: () => import('@/components/home/Home')
   },
   {
     path: '/todo',

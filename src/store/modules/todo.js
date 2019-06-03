@@ -1,8 +1,6 @@
 import Config from '@/config/Config.todo'
 import XHR from '@/apis/api'
 
-let count = 0
-
 export default {
   state: {
     todolist: []
@@ -32,9 +30,7 @@ export default {
     async [Config.ADD](store, payload) {
       // console.log(payload)
       let result = await XHR.add(Config.BASEURL, {
-        id: (count += 1),
-        todo: payload,
-        done: false
+        todo: payload
       })
 
       if (result === 'ok') {
