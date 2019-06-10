@@ -1,13 +1,16 @@
 <template>
   <section>
-    <h2 class="a11y">memo</h2>
-    <List></List>
-    <Modal :active="isShow" @cancel="toggleModal"></Modal>
-    <button class="btn-memo" type="button" @click="toggleModal">+</button>
+    <div v-if="isAuth">
+      <h2 class="a11y">memo</h2>
+      <List></List>
+      <Modal :active="isShow" @cancel="toggleModal"></Modal>
+      <button class="btn-memo" type="button" @click="toggleModal">+</button>
+    </div>
+    <p v-else>로그인 후 이용해 주세요</p>
   </section>
 </template>
 <script>
-import Config from '@/config/Config.memo'
+import {mapState} from 'vuex'
 import List from '@/components/memo/List'
 import Modal from '@/components/memo/Modal'
 export default {
@@ -18,9 +21,7 @@ export default {
       isShow: false
     }
   },
-  created() {
-    this.$store.dispatch(Config.FETCH)
-  },
+  computed: mapState(['isAuth']),
   methods: {
     toggleModal() {
       this.isShow = !this.isShow

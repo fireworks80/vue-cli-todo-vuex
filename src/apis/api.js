@@ -8,20 +8,21 @@ const MSG = {
 }
 
 const get = url => {
+  // console.log(url)
   return new Promise((resolve, reject) => {
-    const getMemolist = () => {
+    const getData = () => {
       if (XHR.readyState === XHR.DONE) {
         if (XHR.status === 200) {
-          // console.log(XHR)
           resolve(JSON.parse(XHR.responseText))
         } else {
-          reject(new Error(MSG.GET))
+          // reject(new Error(MSG.GET))
+          console.log(new Error(MSG.GET))
         }
         // debugger;
       }
     }
 
-    XHR.onreadystatechange = getMemolist
+    XHR.onreadystatechange = getData
     XHR.open('GET', url)
     XHR.send()
   })

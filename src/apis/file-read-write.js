@@ -1,16 +1,22 @@
 const fs = require('fs')
 
+const hasFile = fileName => {
+  fs.open(fileName, 'a', (err, fd) => {
+    if (err) throw new Error(err)
+  })
+}
+
 module.exports = {
-  readFile(path) {
+  readFile(file) {
     return new Promise((res, rej) => {
-      fs.readFile(path, 'utf8', (err, data) => {
+      fs.readFile(file, 'utf8', (err, data) => {
         err ? rej(err) : res(data)
       })
     })
   },
-  writeFile(path, dataObj) {
+  writeFile(file, dataObj) {
     return new Promise((res, rej) => {
-      fs.writeFile(path, JSON.stringify(dataObj), err => {
+      fs.writeFile(file, JSON.stringify(dataObj), err => {
         err ? rej(err) : res('ok')
       })
     })

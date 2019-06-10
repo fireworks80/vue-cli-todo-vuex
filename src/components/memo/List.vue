@@ -29,6 +29,9 @@ export default {
       editText: null
     }
   },
+  created() {
+    this.$store.dispatch(Config.FETCH)
+  },
   computed: mapState({
     list: state => state.memos.memoList
   }),

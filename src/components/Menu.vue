@@ -2,18 +2,30 @@
   <nav>
     <ul>
       <li v-for="(link, idx) in links" :key="idx">
-        <router-link :to="link.path">{{link.name}}</router-link>
+        <router-link v-if="link.name === 'login' && !isAuth" :to="link.path">{{link.name | upperCase}}</router-link>
+        <button v-else-if="link.name === 'login' && isAuth" @click="logout" type="button">{{'logout' | upperCase}}</button>
+        <router-link v-else :to="link.path">{{link.name | upperCase}}</router-link>
       </li>
     </ul>
   </nav>
 </template>
 <script>
-import anchors from '@/routes'
+import {mapState, mapActions} from 'vuex'
 export default {
   name: 'Anchor',
   data() {
     return {
-      links: anchors
+      links: []
+    }
+  },
+  computed: mapState(['isAuth']),
+  created() {
+    this.links = this.$router.options.routes
+  },
+  methods: mapActions(['logout']),
+  filters: {
+    upperCase(linkName) {
+      if (typeof linkName === 'string') return linkName.toUpperCase();
     }
   }
 }

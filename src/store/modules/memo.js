@@ -13,6 +13,7 @@ export default {
   },
   actions: {
     async [Config.FETCH]({ commit }) {
+      console.log('memo action')
       commit(Config.FETCH, await XHR.get(Config.BASEURL))
     },
     async [Config.ADD]({ dispatch }, payload) {

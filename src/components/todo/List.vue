@@ -1,14 +1,16 @@
 <template>
-  <ul class="todo__list">
-    <li class="todo__item" v-for="item in list" :key="item.id" :class="{'editing' : editedTodo === item}">
-      <p>
-        <input class="todo__check" type="checkbox" :checked="item.done" @change="toggleDone(item)">
-        <label @dblclick=editTodoView(item) class="todo__text" :class="{'done': item.done}">{{item.todo}}</label>
-        <button type="button" class="todo__del" @click="delTodo(item.id)"><span class="a11y">삭제</span></button>
-      </p>
-      <input v-todo-focus="item === editedTodo" @blur="doneEdit(item)" @keyup.esc="cancelEdit()" type="text" v-model="editText" class="todo__edit-field">
-    </li>
-  </ul>
+  <div>
+    <ul class="todo__list">
+      <li class="todo__item" v-for="item in list" :key="item.id" :class="{'editing' : editedTodo === item}">
+        <p>
+          <input class="todo__check" type="checkbox" :checked="item.done" @change="toggleDone(item)">
+          <label @dblclick=editTodoView(item) class="todo__text" :class="{'done': item.done}">{{item.todo}}</label>
+          <button type="button" class="todo__del" @click="delTodo(item.id)"><span class="a11y">삭제</span></button>
+        </p>
+        <input v-todo-focus="item === editedTodo" @blur="doneEdit(item)" @keyup.esc="cancelEdit()" type="text" v-model="editText" class="todo__edit-field">
+      </li>
+    </ul>
+  </div>
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
@@ -21,12 +23,12 @@ export default {
       editedTodo: null
     }
   },
-  created() {
-    this.$store.dispatch(Config.FETCH)
-  },
   computed: mapState({
     list: state => state.todos.todolist
   }),
+  created() {
+    this.$store.dispatch(Config.FETCH)
+  },
   methods: {
     editTodoView(item) {
       this.editedTodo = item

@@ -12,12 +12,9 @@ export default {
   },
   mutations: {
     [Config.FETCH](state, payload) {
-      // console.log(payload)
       state.todolist = payload
-      // console.log('todolist: ', state.todolist)
     },
     [Config.EDITFORM](state, payload) {
-      // console.log(payload)
       state.todolist.forEach(item => {
         item.edit = item.id === payload ? true : false
       })
@@ -25,17 +22,17 @@ export default {
   },
   actions: {
     async [Config.FETCH](store, payload) {
+      // console.log('todo action')
       store.commit(Config.FETCH, await XHR.get(Config.BASEURL))
     },
-    async [Config.ADD](store, payload) {
+    async [Config.ADD]({ state, dispatch }, payload) {
       // console.log(payload)
       let result = await XHR.add(Config.BASEURL, {
+        user: state.username,
         todo: payload
       })
 
-      if (result === 'ok') {
-        store.dispatch(Config.FETCH)
-      }
+      if (result === 'ok') dispatch(Config.FETCH)
     },
     async [Config.UPDATE](store, payload) {
       let result = await XHR.update(Config.BASEURL, payload)

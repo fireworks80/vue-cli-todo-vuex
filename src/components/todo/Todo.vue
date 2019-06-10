@@ -1,10 +1,14 @@
 <template>
   <section class="todo-wrap">
-    <Input></Input>
-    <List></List>
+    <div v-if="isAuth">
+      <Input></Input>
+      <List></List>
+    </div>
+    <p v-else>로그인 후 이용해 주세요</p>
   </section>
 </template>
 <script>
+import {mapState} from 'vuex'
 import Input from '@/components/todo/Input'
 import List from '@/components/todo/List'
 export default {
@@ -12,7 +16,8 @@ export default {
   components: {
     Input,
     List
-  }
+  },
+  computed: mapState(['isAuth']),
 }
 </script>
 <style lang="scss" scoped>
