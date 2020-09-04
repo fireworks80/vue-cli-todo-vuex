@@ -29,7 +29,7 @@
     "css-loader": "^2.1.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "nodemon": "^1.19.1",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.5.21"
